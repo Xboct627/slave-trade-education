@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the Transatlantic Slave Trade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: white;
+        }
+
+        .nav-btn.active {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .interactive-box {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .interactive-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .quiz-question {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quiz-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .map-container {
+            background: #2c3e50;
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .route-visualization {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .route-point {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .route-arrow {
+            font-size: 2em;
+            color: #ff6b6b;
+            margin: 0 10px;
+        }
+
+        .reflection-area {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .reflection-area textarea {
+            width: 100%;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1em;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .fact-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .route-visualization {
+                flex-direction: column;
+            }
+            
+            .route-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Transatlantic Slave Trade</h1>
+            <p>Learning About One of History's Greatest Injustices</p>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showSection('intro')">Introduction</button>
+            <button class="nav-btn" onclick="showSection('plantations')">Plantations</button>
+            <button class="nav-btn" onclick="showSection('capture')">Capture & Transport</button>
+            <button class="nav-btn" onclick="showSection('markets')">Slave Markets</button>
+            <button class="nav-btn" onclick="showSection('numbers')">The Numbers</button>
+            <button class="nav-btn" onclick="showSection('materials')">Raw Materials</button>
+            <button class="nav-btn" onclick="showSection('reflection')">Reflection</button>
+        </div>
+
+        <div id="intro" class="content-section active">
+            <h2>What Was the Transatlantic Slave Trade?</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>1400s-1500s: The Beginning</h3>
+                    <p>European explorers began establishing colonies in the Americas and needed workers for their plantations.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>1600s-1700s: Peak Period</h3>
+                    <p>Millions of Africans were forced into slavery and transported across the Atlantic Ocean.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>1800s: Abolition</h3>
+                    <p>Countries began banning the slave trade, though slavery continued in some places until the 1880s.</p>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <h3>The Triangular Trade Route</h3>
+                <div class="route-visualization">
+                    <div class="route-point">Europe</div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-point">Africa</div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-point">Americas</div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-point">Europe</div>
+                </div>
+                <p>Ships would travel in a triangle: Europe to Africa (with manufactured goods), Africa to Americas (with enslaved people), Americas to Europe (with raw materials).</p>
+            </div>
+
+            <div class="interactive-box">
+                <h3>🤔 Think About It</h3>
+                <p>Why do you think this period is called one of the worst crimes in human history? What made it so terrible?</p>
+                <button class="btn" onclick="revealAnswer('intro-answer')">Show Answer</button>
+                <div id="intro-answer" style="display:none; margin-top:15px; padding:15px; background:white; border-radius:10px;">
+                    <p>The slave trade was one of history's worst crimes because:</p>
+                    <ul>
+                        <li>Millions of people were stolen from their families and homeland</li>
+                        <li>People were treated as property, not human beings</li>
+                        <li>Countless people died during the brutal journey across the ocean</li>
+                        <li>It caused immense suffering that lasted for centuries</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="plantations" class="content-section">
+            <h2>Plantations: Why Slave Labor Was Used</h2>
+            
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>🌾 Tobacco</h3>
+                    <p>Grown mainly in Virginia and Maryland. Required year-round care and was very profitable in Europe.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>🌾 Rice</h3>
+                    <p>Grown in South Carolina and Georgia. Many Africans had knowledge of rice cultivation from their homelands.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>🍃 Sugar Cane</h3>
+                    <p>Grown in the Caribbean and Brazil. Required intensive labor and dangerous processing.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>☁️ Cotton</h3>
+                    <p>Became hugely profitable after the cotton gin was invented. Drove expansion of slavery in the American South.</p>
+                </div>
+            </div>
+
+            <div class="fact-box">
+                <strong>Did You Know?</strong> Many enslaved Africans brought valuable agricultural knowledge with them, including techniques for growing rice and indigo that European colonists didn't know.
+            </div>
+
+            <div class="interactive-box">
+                <h3>🎯 Quick Quiz: Plantation Crops</h3>
+                <div class="quiz-question">
+                    <p><strong>Which crop became more profitable after the invention of the cotton gin?</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Tobacco</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Rice</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Cotton</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Sugar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-box">
+                <h3>💭 Critical Thinking</h3>
+                <p>Plantation owners chose to use enslaved labor instead of paying workers. What does this tell us about their priorities and values?</p>
+                <textarea placeholder="Write your thoughts here..." style="width:100%; height:80px; margin-top:10px; padding:10px; border-radius:5px; border:1px solid #ddd;"></textarea>
+            </div>
+        </div>
+
+        <div id="capture" class="content-section">
+            <h2>How People Were Captured and Transported</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Step 1: Capture in Africa</h3>
+                    <p>People were kidnapped from their villages, often during raids. Sometimes local rulers were forced or bribed to sell people from their communities.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 2: The March to the Coast</h3>
+                    <p>Captured people were forced to walk hundreds of miles to ports on the African coast, chained together.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 3: The Middle Passage</h3>
+                    <p>The horrific journey across the Atlantic Ocean in crowded, unsanitary ship conditions. Many people died from disease, starvation, or despair.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 4: Arrival in the Americas</h3>
+                    <p>Survivors were sold at markets and separated from family members, often never to see them again.</p>
+                </div>
+            </div>
+
+            <div class="fact-box">
+                <strong>The Middle Passage:</strong> This was the name for the sea journey from Africa to the Americas. It typically took 6-8 weeks, and conditions were so terrible that about 1 in 8 people died during the crossing.
+            </div>
+
+            <div class="interactive-box">
+                <h3>🎯 Understanding the Impact</h3>
+                <div class="quiz-question">
+                    <p><strong>What was the "Middle Passage"?</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">The journey from Europe to Africa</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">The sea journey from Africa to the Americas</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">The journey from the Americas back to Europe</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">The march from inland Africa to the coast</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reflection-area">
+                <h3>✍️ Reflection Activity</h3>
+                <p>Imagine you had to leave your family, friends, and everything familiar to you forever. How would that feel? What would you miss the most?</p>
+                <textarea placeholder="Share your thoughts about what it would be like to be separated from everything you know..."></textarea>
+            </div>
+        </div>
+
+        <div id="markets" class="content-section">
+            <h2>Slave Markets</h2>
+            
+            <p>When ships arrived in the Americas, enslaved people were sold at markets like objects or animals. This was one of the most dehumanizing aspects of slavery.</p>
+
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>📍 Charleston, South Carolina</h3>
+                    <p>The largest slave market in North America. About 40% of enslaved Africans entered the US through Charleston.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📍 New Orleans, Louisiana</h3>
+                    <p>A major market for selling people to work on cotton and sugar plantations throughout the South.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📍 Havana, Cuba</h3>
+                    <p>A major center for the Caribbean sugar trade, where many people were sold to work on sugar plantations.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📍 Salvador, Brazil</h3>
+                    <p>Brazil received more enslaved Africans than any other country - about 40% of all people transported.</p>
+                </div>
+            </div>
+
+            <div class="fact-box">
+                <strong>Families Torn Apart:</strong> At slave markets, family members were often sold to different owners and separated forever. Parents lost their children, and spouses were separated from each other.
+            </div>
+
+            <div class="interactive-box">
+                <h3>🤔 Think Deeper</h3>
+                <p>Why was treating people like property at markets so harmful to human dignity? What message did this send about how some people viewed others?</p>
+                <button class="btn" onclick="revealAnswer('market-answer')">Explore This Idea</button>
+                <div id="market-answer" style="display:none; margin-top:15px; padding:15px; background:white; border-radius:10px;">
+                    <p>Slave markets were dehumanizing because they:</p>
+                    <ul>
+                        <li>Treated human beings as objects to be bought and sold</li>
+                        <li>Ignored people's feelings, relationships, and humanity</li>
+                        <li>Showed that some people believed others were worth less than them</li>
+                        <li>Destroyed families and communities</li>
+                        <li>Demonstrated how racism was used to justify terrible treatment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="numbers" class="content-section">
+            <h2>The Scale: Numbers Tell the Story</h2>
+            
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>📊 12.5 Million</h3>
+                    <p>Total number of Africans transported across the Atlantic (though millions more died before reaching the ships)</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📊 400,000</h3>
+                    <p>Number of enslaved people brought to what became the United States (about 3% of the total)</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📊 4.9 Million</h3>
+                    <p>Number brought to Brazil - the largest destination</p>
+                </div>
+                <div class="impact-card">
+                    <h3>📊 400 Years</h3>
+                    <p>How long the transatlantic slave trade lasted (roughly 1450-1850)</p>
+                </div>
+            </div>
+
+            <div class="fact-box">
+                <strong>Putting It in Perspective:</strong> If we lined up 12.5 million people holding hands, the line would stretch from New York to Los Angeles and back again - twice!
+            </div>
+
+            <div class="interactive-box">
+                <h3>🎯 Numbers Quiz</h3>
+                <div class="quiz-question">
+                    <p><strong>Which country received the most enslaved Africans?</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">United States</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Brazil</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Cuba</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Jamaica</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-box">
+                <h3>📈 Understanding Scale</h3>
+                <p>These numbers represent real people - each one had a name, a family, dreams, and a life that was stolen from them. How can we honor their memory today?</p>
+                <textarea placeholder="How can we remember and honor the millions of people affected by slavery?"></textarea>
+            </div>
+        </div>
+
+        <div id="materials" class="content-section">
+            <h2>What Happened to Raw Materials from Slave Labor</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Step 1: Production</h3>
+                    <p>Enslaved people grew and harvested crops like cotton, sugar, tobacco, and rice on plantations.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 2: Processing</h3>
+                    <p>Raw materials were processed - cotton was ginned, sugar cane was crushed and refined, tobacco was dried and prepared.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 3: Export</h3>
+                    <p>These materials were shipped to Europe and northern American cities to be turned into finished goods.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 4: Manufacturing</h3>
+                    <p>Cotton became cloth and clothing, sugar became refined products, tobacco became cigarettes and other products.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Step 5: Profit</h3>
+                    <p>Finished goods were sold worldwide, generating enormous profits for merchants, manufacturers, and plantation owners - but enslaved workers received nothing.</p>
+                </div>
+            </div>
+
+            <div class="fact-box">
+                <strong>Economic Impact:</strong> The wealth created by slave labor helped fund the Industrial Revolution in Europe and economic development in North America. Many banks, insurance companies, and universities were built with profits from slave labor.
+            </div>
+
+            <div class="interactive-box">
+                <h3>🎯 Connecting the Dots</h3>
+                <div class="quiz-question">
+                    <p><strong>Who benefited financially from slave-produced materials?</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Only plantation owners</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Only people in the American South</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">People across Europe and America</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Only government officials</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reflection-area">
+                <h3>💡 Making Connections</h3>
+                <p>Many people who never owned slaves still benefited from slave labor through cheaper goods and economic growth. What responsibility did they have to speak out against slavery?</p>
+                <textarea placeholder="What do you think about people who benefited from slavery but didn't directly participate in it?"></textarea>
+            </div>
+        </div>
+
+        <div id="reflection" class="content-section">
+            <h2>Reflection and Learning</h2>
+            
+            <div class="reflection-area">
+                <h3>🤔 Final Reflection Questions</h3>
+                <p><strong>1. What was the most surprising thing you learned about the transatlantic slave trade?</strong></p>
+                <textarea placeholder="Share what surprised you most..."></textarea>
+                
+                <p><strong>2. How do you think this history still affects our world today?</strong></p>
+                <textarea placeholder="Think about lasting impacts..."></textarea>
+                
+                <p><strong>3. What can we do to make sure something like this never happens again?</strong></p>
+                <textarea placeholder="What actions can prevent such injustices?"></textarea>
+            </div>
+
+            <div class="interactive-box">
+                <h3>🌟 Key Takeaways</h3>
+                <ul>
+                    <li>The transatlantic slave trade was one of history's greatest crimes against humanity</li>
+                    <li>It lasted about 400 years and affected over 12 million people</li>
+                    <li>It was driven by economic greed and the desire for cheap labor</li>
+                    <li>The wealth it created benefited many people beyond just plantation owners</li>
+                    <li>Its effects are still felt today in ongoing inequalities and racism</li>
+                    <li>Learning this history helps us understand our world and work for justice</li>
+                </ul>
+            </div>
+
+            <div class="fact-box">
+                <strong>Why We Study This History:</strong> Learning about difficult periods in history like the slave trade helps us understand how injustice happens, recognize it when we see it today, and work to create a more fair and equal world for everyone.
+            </div>
+
+            <div class="interactive-box">
+                <h3>🎯 Final Assessment</h3>
+                <p>Test your understanding with this final question:</p>
+                <div class="quiz-question">
+                    <p><strong>Why is it important for students to learn about the transatlantic slave trade today?</strong></p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">To make people feel guilty about the past</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">To understand history and work for justice today</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">To blame certain groups for historical wrongs</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Because it's required by law</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function checkAnswer(element, isCorrect) {
+            // Remove previous styling from all options in this question
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Style the selected answer
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                // Also highlight the correct answer
+                options.forEach(option => {
+                    if (option !== element && option.onclick.toString().includes('true')) {
+                        option.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function revealAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                event.target.textContent = 'Hide Answer';
+            } else {
+                answer.style.display = 'none';
+                event.target.textContent = 'Show Answer';
+            }
+        }
+
+        // Add smooth scrolling to top when switching sections
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Attach scroll to section switching
+        const originalShowSection = showSection;
+        showSection = function(sectionId) {
+            originalShowSection(sectionId);
+            smoothScrollToTop();
+        };
+    </script>
+</body>
+</html>
